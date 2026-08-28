@@ -1,0 +1,16 @@
+# Claude Code local settings
+.claude/
+
+# Windows and macOS system junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Superseded duplicates, kept on disk, not published
+00 index/ora-index-2026-08-27.html
+00 index/old low quality/
+04 ORA - Brand Assets/ora-assets - Copy.html
+03 ORA - Brand Showcase/6-superseded.jpg
+
+# stray empty repo left by GitHub Desktop, delete once the app is closed
+2026 ORA - Hybrid Movement Studio/

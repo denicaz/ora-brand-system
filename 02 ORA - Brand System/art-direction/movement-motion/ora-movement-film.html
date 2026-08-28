@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ORA — The Movement, five hours</title>
+<!--
+  ORA MOVEMENT FILM
+  Five posters on black. The row travels, one hour opens, holds, and closes again.
+  strength / running / cycling / pilates / yoga, which is the order of load.
+
+  The countdown runs 1 / 00 down to 0 / 00 across the whole piece, the same clock
+  the logo film runs, and the mark resolves when it lands.
+
+  Weight falls the whole way: Black, Bold, Medium, Roman, Light.
+  Red peaks in the middle: 0, 0.25, 1, 0.25, 0. That is the rule under each poster.
+
+  Query params:  ?w=1920&h=1080   canvas size
+                 ?t=6.4           freeze at a time, for stills and for the renderer
+  Keys:          space pause / play, left and right step one frame, r restart
+-->
+<style>
+  @font-face{font-family:'HN';font-weight:300;font-style:normal;
+    src:local('HelveticaNeueLight'),local('Helvetica Neue Light'),
+        url('../../fonts-ora/helvetica-neue/HelveticaNeueLight.otf') format('opentype');}
+  @font-face{font-family:'HN';font-weight:400;font-style:normal;
+    src:local('HelveticaNeueRoman'),local('Helvetica Neue Roman'),local('Helvetica Neue'),
+        url('../../fonts-ora/helvetica-neue/HelveticaNeueRoman.otf') format('opentype');}
+  @font-face{font-family:'HN';font-weight:500;font-style:normal;
+    src:local('HelveticaNeueMedium'),local('Helvetica Neue Medium'),
+        url('../../fonts-ora/helvetica-neue/HelveticaNeueMedium.otf') format('opentype');}
+  @font-face{font-family:'HN';font-weight:700;font-style:normal;
+    src:local('HelveticaNeueBold'),local('Helvetica Neue Bold'),
+        url('../../fonts-ora/helvetica-neue/HelveticaNeueBold.otf') format('opentype');}
+  @font-face{font-family:'HN';font-weight:900;font-style:normal;
+    src:local('HelveticaNeueBlack'),local('Helvetica Neue Black'),
+        url('../../fonts-ora/helvetica-neue/HelveticaNeueBlack.otf') format('opentype');}
+  @font-face{font-family:'PTM';font-weight:400;font-style:normal;
+    src:local('PT Mono'),local('PTMono-Regular'),
+        url('../../fonts-ora/PTMono-Regular.ttf') format('truetype');}
+
+  :root{
+    --red:#D40000;
+    --black:#0D0C0C;      /* ORA's black, the value the colourway files use */
+    --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--black);height:100%;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center}
+
+  #stage{
+    position:relative;
+    background:var(--black);
+    overflow:hidden;
+    transform-origin:center center;
+  }
+
+  /* the row of posters */
+  #row{position:absolute;left:0;top:0;width:100%;height:100%}
+  .poster{
+    position:absolute;left:0;top:0;
+    overflow:hidden;
+    background:var(--black);
+    will-change:transform,width,height;
+    backface-visibility:hidden;
+  }
+  .poster img{
+    display:block;width:100%;height:100%;object-fit:cover;
+  }
+
+  /* the clock, top centre, data */
+  #clock{
+    position:absolute;left:0;width:100%;text-align:center;
+    font-family:'PTM',ui-monospace,monospace;
+    color:var(--white);
+    white-space:pre;
+  }
+
+  /* the heat rule. one hairline that measures how continuous the hour is */
+  #heat{
+    position:absolute;left:50%;transform:translateX(-50%);
+    background:var(--red);width:0;
+  }
+
+  /* the five, slash-joined. a discipline in a set is mono. */
+  #index{
+    position:absolute;left:0;width:100%;text-align:center;
+    font-family:'PTM',ui-monospace,monospace;
+    color:var(--white);
+    white-space:pre;
+  }
+  #index span{opacity:.24}
+  #index span.on{opacity:1}
+
+  /* the end frame */
+  #mark{
+    position:absolute;left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    opacity:0;
+  }
+  #mark img{display:block;height:100%;width:100%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="row"></div>
+  <div id="heat"></div>
+  <div id="clock">1 / 00</div>
+  <div id="index"></div>
+  <div id="mark"><img src="../../logo-ora/colourways/ORA_LOGO_SIGNATURE_WHITE_ON_BLACK.svg" alt="o / ra"></div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---- the five hours, in the order of load -----------------------------
+     the posters name themselves, so the film never repeats a name. it holds
+     the whole set instead, and lights the one that is open.
+     heat is how continuous the hour is. it peaks at cycling and leaves by a
+     different route at each end. */
+  var HOURS = [
+    { key:'strength', src:'../Poster%20Strength.png', heat:0.00 },
+    { key:'running',  src:'../Poster%20Running.png',  heat:0.25 },
+    { key:'cycling',  src:'../Poster%20Cycling.png',  heat:1.00 },
+    { key:'pilates',  src:'../Poster%20Pilates.jpg',  heat:0.25 },
+    { key:'yoga',     src:'../Poster%20Yoga.jpg',     heat:0.00 }
+  ];
+
+  /* ---- the timeline, in seconds ---------------------------------------- */
+  var OPEN   = 0.90;
+  var CYCLE  = 2.20;
+  var TRAVEL = 0.62;
+  var GROW_A = 0.28, GROW_B = 0.86;
+  var SHUT_A = 1.78, SHUT_B = 2.20;
+  var LAST   = OPEN + HOURS.length * CYCLE;
+  var EXIT   = LAST + 1.20;
+  var MARK_A = EXIT + 0.25, MARK_B = EXIT + 0.75;
+  var DUR    = 14.00;
+  var FPS    = 30;
+
+  /* ?loop drops the end card. the hour still runs 1 / 00 down to 0 / 00, but it
+     lands on the frame the film started from, so the cut is black to black and
+     the band can hold it forever. that cut is what the Showcase carries. */
+  var LOOP = new URLSearchParams(location.search).has('loop');
+  if(LOOP) DUR = EXIT;
+
+  /* ---- easing ----------------------------------------------------------- */
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  function span(t,a,b){ return clamp((t-a)/(b-a),0,1); }
+  function inOutCubic(p){ return p<0.5 ? 4*p*p*p : 1-Math.pow(-2*p+2,3)/2; }
+  function outCubic(p){ return 1-Math.pow(1-p,3); }
+  function outQuart(p){ return 1-Math.pow(1-p,4); }
+  function inCubic(p){ return p*p*p; }
+  function lerp(a,b,p){ return a+(b-a)*p; }
+
+  /* ---- the stage -------------------------------------------------------- */
+  var q = new URLSearchParams(location.search);
+  var W = parseInt(q.get('w')||'1920',10);
+  var H = parseInt(q.get('h')||'1080',10);
+
+  var stage = document.getElementById('stage');
+  var row   = document.getElementById('row');
+  var clock = document.getElementById('clock');
+  var index = document.getElementById('index');
+  var heat  = document.getElementById('heat');
+  var mark  = document.getElementById('mark');
+
+  stage.style.width  = W+'px';
+  stage.style.height = H+'px';
+
+  /* ---- the meter --------------------------------------------------------
+     one square is 60, the hour. the margin is one square. type is 40 / 20 / 10. */
+  var U = Math.min(W,H)/18;
+  var GAP = U;
+  var DISPLAY = U*2/3;
+  var DATA    = U/3;
+
+  var indexTop = H - U - U/2;          /* 20 on a 30 line, one square off the foot */
+  var ruleY    = indexTop - U/2;
+  var bandTop  = U + U/2 + U*0.6;      /* clear of the clock */
+  var bandBot  = ruleY - U*0.6;
+
+  /* the open hour fills the band it is given, but never crowds the sides and
+     never grows past three quarters of a tall frame. SIT keeps it low in the
+     band so the red measure sits close under it at every shape. */
+  var SIT     = 0.72;
+  var HERO_H  = Math.min(bandBot-bandTop, 1.075*W, 0.74*H);
+  var HERO_W  = HERO_H*0.8;
+  var SCALE   = 1.70;
+  var STRIP_H = HERO_H/SCALE;
+  var STRIP_W = STRIP_H*0.8;
+  var MIDY    = bandTop + HERO_H/2 + (bandBot-bandTop-HERO_H)*SIT;
+  var PITCH   = STRIP_W + GAP;
+
+  clock.style.top = U+'px';
+  clock.style.fontSize = DATA+'px';
+  clock.style.lineHeight = (U/2)+'px';
+  clock.style.letterSpacing = (DATA*0.10)+'px';
+
+  index.style.top = indexTop+'px';
+  index.style.fontSize = DATA+'px';
+  index.style.lineHeight = (U/2)+'px';
+  index.style.letterSpacing = (DATA*0.10)+'px';
+
+  heat.style.top = ruleY+'px';
+  heat.style.height = Math.max(2, Math.round(U/15))+'px';
+
+  mark.style.height = (H*0.28)+'px';
+  mark.style.width  = (H*0.28)+'px';
+
+  /* the set, slash-joined. the slash joins equals and never means or. */
+  var words = HOURS.map(function(h,i){
+    var s = document.createElement('span');
+    s.textContent = h.key;
+    if(i){
+      var sep = document.createElement('span');
+      sep.textContent = ' / ';
+      index.appendChild(sep);
+    }
+    index.appendChild(s);
+    return s;
+  });
+
+  /* ---- build the row ---------------------------------------------------- */
+  var cards = HOURS.map(function(h){
+    var d = document.createElement('div');
+    d.className = 'poster';
+    var img = document.createElement('img');
+    img.src = h.src;
+    img.alt = h.key;
+    d.appendChild(img);
+    row.appendChild(d);
+    return d;
+  });
+
+  /* ---- the film ---------------------------------------------------------
+     focus is a continuous index. it steps 0, 1, 2, 3, 4 and holds between steps. */
+  function focusAt(t){
+    if(t < OPEN) return -1 + outQuart(t/OPEN);
+    if(t >= LAST) return 4 + inCubic(span(t, LAST, EXIT)) * 3.2;
+    var i = Math.floor((t-OPEN)/CYCLE);
+    var tau = (t-OPEN) - i*CYCLE;
+    if(tau < TRAVEL && i > 0) return (i-1) + inOutCubic(tau/TRAVEL);
+    return i;
+  }
+
+  /* how far open each poster is. 0 shut, 1 the hour. */
+  function bumpAt(t, i){
+    var tau = t - (OPEN + i*CYCLE);
+    if(tau <= GROW_A) return 0;
+    if(tau < GROW_B)  return outCubic(span(tau, GROW_A, GROW_B));
+    if(tau < SHUT_A)  return 1;
+    if(tau < SHUT_B)  return 1 - inOutCubic(span(tau, SHUT_A, SHUT_B));
+    return 0;
+  }
+
+  function seek(t){
+    t = clamp(t, 0, DUR);
+    var i;
+
+    /* 1. every poster's size */
+    var ws = [], hs = [], bumps = [];
+    for(i=0;i<HOURS.length;i++){
+      var b = bumpAt(t,i);
+      bumps.push(b);
+      hs.push(lerp(STRIP_H, HERO_H, b));
+      ws.push(lerp(STRIP_W, HERO_W, b));
+    }
+
+    /* 2. lay them out left to right, so an open hour pushes its neighbours */
+    var xs = [], cur = 0;
+    for(i=0;i<ws.length;i++){ xs.push(cur); cur += ws[i] + GAP; }
+
+    /* 3. centre the row on the focus, extrapolating past both ends */
+    var f = focusAt(t);
+    var n = ws.length;
+    function centreOf(k){
+      if(k < 0) return xs[0] + ws[0]/2 + k*PITCH;
+      if(k > n-1) return xs[n-1] + ws[n-1]/2 + (k-(n-1))*PITCH;
+      var lo = Math.floor(k), hi = Math.ceil(k);
+      return lerp(xs[lo]+ws[lo]/2, xs[hi]+ws[hi]/2, k-lo);
+    }
+    var off = W/2 - centreOf(f);
+
+    for(i=0;i<cards.length;i++){
+      var c = cards[i];
+      c.style.width  = ws[i]+'px';
+      c.style.height = hs[i]+'px';
+      c.style.transform = 'translate3d('+(off+xs[i])+'px,'+(MIDY-hs[i]/2)+'px,0)';
+    }
+
+    /* 4. the clock, 1 / 00 down to 0 / 00 */
+    var left = Math.max(0, Math.ceil(60 * (1 - clamp(t/EXIT,0,1))));
+    clock.textContent = Math.floor(left/60) + ' / ' + String(left%60).padStart(2,'0');
+    clock.style.opacity = LOOP
+      ? String(span(t,0.20,0.55) * (1 - span(t, EXIT-0.45, EXIT)))
+      : String(span(t,0.20,0.55) * (1 - span(t, EXIT, EXIT+0.30)));
+
+    /* 5. the set below, with the open hour lit, and the red measure above it */
+    var lead = -1, best = 0;
+    for(i=0;i<bumps.length;i++){ if(bumps[i] > best){ best = bumps[i]; lead = i; } }
+    for(i=0;i<words.length;i++){
+      words[i].classList.toggle('on', i === lead && best > 0.5);
+    }
+    index.style.opacity = String(span(t,0.45,1.05) * (1 - span(t, LAST+0.30, EXIT-0.20)));
+
+    if(lead >= 0 && best > 0.02){
+      heat.style.width = (HERO_W*HOURS[lead].heat*best)+'px';
+      heat.style.opacity = String(best);
+    } else {
+      heat.style.width = '0px';
+    }
+
+    /* 6. the mark resolves, unless this is the looping cut */
+    var m = LOOP ? 0 : outCubic(span(t, MARK_A, MARK_B));
+    mark.style.opacity = String(m);
+    mark.style.transform = 'translate(-50%,-50%) scale('+lerp(1.05,1,m)+')';
+  }
+
+  /* ---- playback ---------------------------------------------------------- */
+  window.__seek = seek;
+  window.__meta = { dur:DUR, fps:FPS, w:W, h:H, frames:Math.round(DUR*FPS) };
+
+  function assetsReady(){
+    var waits = [document.fonts.ready];
+    Array.prototype.forEach.call(document.images, function(im){
+      if(!im.complete) waits.push(new Promise(function(r){ im.onload = im.onerror = r; }));
+    });
+    return Promise.all(waits);
+  }
+
+  var frozen = q.get('t');
+  if(frozen !== null){
+    stage.style.transform = 'none';
+    assetsReady().then(function(){
+      seek(parseFloat(frozen));
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ window.__ready = true; });
+      });
+    });
+    return;
+  }
+
+  var t0 = performance.now(), paused = false, at = 0;
+  function frame(now){
+    if(!paused){ at = ((now - t0)/1000) % DUR; seek(at); }
+    requestAnimationFrame(frame);
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.code === 'Space'){ paused = !paused; if(!paused) t0 = performance.now() - at*1000; e.preventDefault(); }
+    if(e.code === 'ArrowRight'){ paused = true; at = Math.min(DUR, at + 1/FPS); seek(at); }
+    if(e.code === 'ArrowLeft'){ paused = true; at = Math.max(0, at - 1/FPS); seek(at); }
+    if(e.key === 'r'){ at = 0; t0 = performance.now(); seek(0); }
+  });
+
+  /* fit the stage to the window when it is opened by hand */
+  function fit(){
+    stage.style.transform = 'scale('+Math.min(window.innerWidth/W, window.innerHeight/H, 1)+')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  assetsReady().then(function(){ seek(0); });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

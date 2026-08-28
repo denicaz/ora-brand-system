@@ -1,0 +1,326 @@
+[
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "BLACK_ON_WHITE",
+  "name": "Black on White",
+  "note": "The master",
+  "ink": "#0D0C0C",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_CLOCK_BLACK_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "WHITE_ON_BLACK",
+  "name": "White on Near-Black",
+  "note": "Strength",
+  "ink": "#FFFFFF",
+  "ground": "#0D0C0C",
+  "svg": "ORA_LOGO_CLOCK_WHITE_ON_BLACK.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "WHITE_ON_CHARCOAL",
+  "name": "White on Charcoal",
+  "note": "Running",
+  "ink": "#FFFFFF",
+  "ground": "#2E2C2B",
+  "svg": "ORA_LOGO_CLOCK_WHITE_ON_CHARCOAL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "WHITE_ON_RED",
+  "name": "White on ORA Red",
+  "note": "Cycling",
+  "ink": "#FFFFFF",
+  "ground": "#D40000",
+  "svg": "ORA_LOGO_CLOCK_WHITE_ON_RED.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "BLACK_ON_STEEL",
+  "name": "Near-Black on Steel",
+  "note": "Pilates",
+  "ink": "#0D0C0C",
+  "ground": "#C6C6C6",
+  "svg": "ORA_LOGO_CLOCK_BLACK_ON_STEEL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "WHITE_ON_CONCRETE",
+  "name": "White on Concrete",
+  "note": "The Room",
+  "ink": "#FFFFFF",
+  "ground": "#A5A5A5",
+  "svg": "ORA_LOGO_CLOCK_WHITE_ON_CONCRETE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "RED_ON_WHITE",
+  "name": "ORA Red on White",
+  "note": "The Movement",
+  "ink": "#D40000",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_CLOCK_RED_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "WHITE_ON_BLOOD",
+  "name": "White on Blood Red",
+  "note": "The Woman",
+  "ink": "#FFFFFF",
+  "ground": "#660000",
+  "svg": "ORA_LOGO_CLOCK_WHITE_ON_BLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_CLOCK",
+  "way": "RED_ON_OXBLOOD",
+  "name": "ORA Red on Oxblood",
+  "note": "The Brand",
+  "ink": "#D40000",
+  "ground": "#2D0000",
+  "svg": "ORA_LOGO_CLOCK_RED_ON_OXBLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "BLACK_ON_WHITE",
+  "name": "Black on White",
+  "note": "The master",
+  "ink": "#0D0C0C",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_FRAME_BLACK_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "WHITE_ON_BLACK",
+  "name": "White on Near-Black",
+  "note": "Strength",
+  "ink": "#FFFFFF",
+  "ground": "#0D0C0C",
+  "svg": "ORA_LOGO_FRAME_WHITE_ON_BLACK.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "WHITE_ON_CHARCOAL",
+  "name": "White on Charcoal",
+  "note": "Running",
+  "ink": "#FFFFFF",
+  "ground": "#2E2C2B",
+  "svg": "ORA_LOGO_FRAME_WHITE_ON_CHARCOAL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "WHITE_ON_RED",
+  "name": "White on ORA Red",
+  "note": "Cycling",
+  "ink": "#FFFFFF",
+  "ground": "#D40000",
+  "svg": "ORA_LOGO_FRAME_WHITE_ON_RED.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "BLACK_ON_STEEL",
+  "name": "Near-Black on Steel",
+  "note": "Pilates",
+  "ink": "#0D0C0C",
+  "ground": "#C6C6C6",
+  "svg": "ORA_LOGO_FRAME_BLACK_ON_STEEL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "WHITE_ON_CONCRETE",
+  "name": "White on Concrete",
+  "note": "The Room",
+  "ink": "#FFFFFF",
+  "ground": "#A5A5A5",
+  "svg": "ORA_LOGO_FRAME_WHITE_ON_CONCRETE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "RED_ON_WHITE",
+  "name": "ORA Red on White",
+  "note": "The Movement",
+  "ink": "#D40000",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_FRAME_RED_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "WHITE_ON_BLOOD",
+  "name": "White on Blood Red",
+  "note": "The Woman",
+  "ink": "#FFFFFF",
+  "ground": "#660000",
+  "svg": "ORA_LOGO_FRAME_WHITE_ON_BLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_FRAME",
+  "way": "RED_ON_OXBLOOD",
+  "name": "ORA Red on Oxblood",
+  "note": "The Brand",
+  "ink": "#D40000",
+  "ground": "#2D0000",
+  "svg": "ORA_LOGO_FRAME_RED_ON_OXBLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "BLACK_ON_WHITE",
+  "name": "Black on White",
+  "note": "The master",
+  "ink": "#0D0C0C",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_SIGNATURE_BLACK_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "WHITE_ON_BLACK",
+  "name": "White on Near-Black",
+  "note": "Strength",
+  "ink": "#FFFFFF",
+  "ground": "#0D0C0C",
+  "svg": "ORA_LOGO_SIGNATURE_WHITE_ON_BLACK.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "WHITE_ON_CHARCOAL",
+  "name": "White on Charcoal",
+  "note": "Running",
+  "ink": "#FFFFFF",
+  "ground": "#2E2C2B",
+  "svg": "ORA_LOGO_SIGNATURE_WHITE_ON_CHARCOAL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "WHITE_ON_RED",
+  "name": "White on ORA Red",
+  "note": "Cycling",
+  "ink": "#FFFFFF",
+  "ground": "#D40000",
+  "svg": "ORA_LOGO_SIGNATURE_WHITE_ON_RED.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "BLACK_ON_STEEL",
+  "name": "Near-Black on Steel",
+  "note": "Pilates",
+  "ink": "#0D0C0C",
+  "ground": "#C6C6C6",
+  "svg": "ORA_LOGO_SIGNATURE_BLACK_ON_STEEL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "WHITE_ON_CONCRETE",
+  "name": "White on Concrete",
+  "note": "The Room",
+  "ink": "#FFFFFF",
+  "ground": "#A5A5A5",
+  "svg": "ORA_LOGO_SIGNATURE_WHITE_ON_CONCRETE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "RED_ON_WHITE",
+  "name": "ORA Red on White",
+  "note": "The Movement",
+  "ink": "#D40000",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_SIGNATURE_RED_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "WHITE_ON_BLOOD",
+  "name": "White on Blood Red",
+  "note": "The Woman",
+  "ink": "#FFFFFF",
+  "ground": "#660000",
+  "svg": "ORA_LOGO_SIGNATURE_WHITE_ON_BLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_SIGNATURE",
+  "way": "RED_ON_OXBLOOD",
+  "name": "ORA Red on Oxblood",
+  "note": "The Brand",
+  "ink": "#D40000",
+  "ground": "#2D0000",
+  "svg": "ORA_LOGO_SIGNATURE_RED_ON_OXBLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "BLACK_ON_WHITE",
+  "name": "Black on White",
+  "note": "The master",
+  "ink": "#0D0C0C",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_WORD_BLACK_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "WHITE_ON_BLACK",
+  "name": "White on Near-Black",
+  "note": "Strength",
+  "ink": "#FFFFFF",
+  "ground": "#0D0C0C",
+  "svg": "ORA_LOGO_WORD_WHITE_ON_BLACK.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "WHITE_ON_CHARCOAL",
+  "name": "White on Charcoal",
+  "note": "Running",
+  "ink": "#FFFFFF",
+  "ground": "#2E2C2B",
+  "svg": "ORA_LOGO_WORD_WHITE_ON_CHARCOAL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "WHITE_ON_RED",
+  "name": "White on ORA Red",
+  "note": "Cycling",
+  "ink": "#FFFFFF",
+  "ground": "#D40000",
+  "svg": "ORA_LOGO_WORD_WHITE_ON_RED.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "BLACK_ON_STEEL",
+  "name": "Near-Black on Steel",
+  "note": "Pilates",
+  "ink": "#0D0C0C",
+  "ground": "#C6C6C6",
+  "svg": "ORA_LOGO_WORD_BLACK_ON_STEEL.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "WHITE_ON_CONCRETE",
+  "name": "White on Concrete",
+  "note": "The Room",
+  "ink": "#FFFFFF",
+  "ground": "#A5A5A5",
+  "svg": "ORA_LOGO_WORD_WHITE_ON_CONCRETE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "RED_ON_WHITE",
+  "name": "ORA Red on White",
+  "note": "The Movement",
+  "ink": "#D40000",
+  "ground": "#FFFFFF",
+  "svg": "ORA_LOGO_WORD_RED_ON_WHITE.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "WHITE_ON_BLOOD",
+  "name": "White on Blood Red",
+  "note": "The Woman",
+  "ink": "#FFFFFF",
+  "ground": "#660000",
+  "svg": "ORA_LOGO_WORD_WHITE_ON_BLOOD.svg"
+ },
+ {
+  "variation": "ORA_LOGO_WORD",
+  "way": "RED_ON_OXBLOOD",
+  "name": "ORA Red on Oxblood",
+  "note": "The Brand",
+  "ink": "#D40000",
+  "ground": "#2D0000",
+  "svg": "ORA_LOGO_WORD_RED_ON_OXBLOOD.svg"
+ }
+]
