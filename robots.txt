@@ -1,0 +1,4 @@
+# The ORA delivery is not for search engines. This discourages indexing.
+# It does not restrict access: anyone with the URL can still read the site.
+User-agent: *
+Disallow: /
